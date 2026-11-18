@@ -1,0 +1,27 @@
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "DejaVu Sans"
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #4A5568
+skinparam ArrowFontColor #4A5568
+skinparam ArrowFontSize 11
+skinparam ActivityBackgroundColor #EDF2F7
+skinparam ActivityBorderColor #4A5568
+skinparam ActivityDiamondBackgroundColor #FEFCBF
+skinparam ActivityDiamondBorderColor #B7791F
+skinparam SwimlaneBorderColor #A0AEC0
+skinparam SwimlaneTitleFontStyle bold
+skinparam StateBackgroundColor #EDF2F7
+skinparam StateBorderColor #4A5568
+skinparam StateStartColor #2D3748
+skinparam StateEndColor #2D3748
+skinparam NodeBackgroundColor #EBF8FF
+skinparam NodeBorderColor #2B6CB0
+skinparam DatabaseBackgroundColor #F0FFF4
+skinparam DatabaseBorderColor #2F855A
+skinparam StorageBackgroundColor #FFFAF0
+skinparam StorageBorderColor #C05621
+skinparam RectangleBorderColor #A0AEC0
+skinparam NoteBackgroundColor #FFFFF0
+skinparam NoteBorderColor #D69E2E

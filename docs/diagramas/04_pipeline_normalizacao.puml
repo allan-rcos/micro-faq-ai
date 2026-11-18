@@ -1,0 +1,22 @@
+@startuml
+!include _tema.iuml
+title Pipeline de normalização — uma passada, caractere a caractere
+start
+:Mensagem crua;
+repeat :Próximo caractere;
+  :**§2 Unicode**
+  NFKD → descarta acentos (Mn) → minúscula
+  → classifica: letra/dígito, delimitador ou separador;
+  :**§3 Letras repetidas e espaços**
+  3+ letras iguais viram 1
+  separadores viram um só espaço;
+  :**§4 Janela de gírias (Aho-Corasick)**
+  avança o autômato; ao sair da janela,
+  troca a ocorrência mais longa por inteiro;
+  :**§5 Frases e tokens**
+  espaço fecha token; delimitador fecha frase;
+repeat while (há mais caracteres?) is (sim)
+-> não;
+:""[[token, ...], [token, ...], ...]"";
+stop
+@enduml

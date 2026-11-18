@@ -1,0 +1,45 @@
+@startuml
+!include _tema.iuml
+title Ciclo de aprendizado
+|#EBF8FF|VM bot (Alpine, Go)|
+start
+:Mensagem do grupo;
+:Normaliza e classifica;
+switch (Faixa de confiança)
+case (alta)
+  :Responde;
+  detach
+case (média)
+  :Oferece alternativas;
+  :Usuário escolhe uma;
+case (baixa)
+  :Abre caso no grupo
+  de administração;
+  :Administrador responde
+  com um comando;
+endswitch
+:Tópico confirmado
+por uma pessoa;
+|#FFFAF0|Bucket (Object Storage)|
+:dados/treinamento.json
+recebe o exemplo novo;
+|#F0FFF4|VM treino (Debian, Python)|
+:Verificação diária do cron:
+passou o intervalo (30 dias)
+e há dados novos?;
+:Normaliza → poda o dicionário
+→ treina → exporta ONNX;
+:Monta o pacote .bin (protobuf);
+|Bucket (Object Storage)|
+:modelos/<versão>.bin;
+|VM treino (Debian, Python)|
+:Release no repositório
+(pacote + JSON, Brotli);
+|Bucket (Object Storage)|
+:Mantém só os N
+pacotes mais recentes;
+|VM bot (Alpine, Go)|
+:Baixa, verifica e testa;
+:Troca o modelo em execução;
+stop
+@enduml

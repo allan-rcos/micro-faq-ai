@@ -1,0 +1,21 @@
+@startuml
+!include _tema.iuml
+title Estados de uma pergunta
+hide empty description
+[*] --> Classificada
+state "Respondida" as Respondida : aguarda negativa\npor negativa.janela
+state "Aguardando escolha" as Aguardando : por alternativas.expira_em
+state "Caso aberto" as Caso : no NoSQL, com TTL
+Classificada --> Encerrada : tópico reservado (§2)
+Classificada --> Respondida : confiança alta
+Classificada --> Aguardando : confiança média
+Classificada --> Caso : confiança baixa
+Respondida --> Aguardando : 1ª negativa
+Respondida --> Caso : negativa após alternativas
+Respondida --> Encerrada : janela passou
+Aguardando --> Respondida : número escolhido
+Aguardando --> Caso : zero ou negativa
+Aguardando --> Encerrada : expirou
+Caso --> Encerrada : comando de administrador\nou TTL
+Encerrada --> [*]
+@enduml

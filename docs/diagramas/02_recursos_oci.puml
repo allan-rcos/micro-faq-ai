@@ -1,0 +1,21 @@
+@startuml
+!include _tema.iuml
+title Recursos na OCI — compartimento micro-faq-ai
+left to right direction
+actor "WhatsApp" as wa
+rectangle "VCN micro-faq-ai — sub-rede pública\n(ingresso só SSH restrito; saída 443)" {
+  node "VM bot — A1.Flex\nAlpine 3.24 · arm64 · 1 OCPU, 12 GB\nbinário Go + ONNX Runtime" as bot
+  node "VM treino — E2.1.Micro\nDebian slim · x86_64 · 1 GB\nPython + PyTorch (cron)" as treino
+}
+storage "Bucket micro-faq-ai\n(privado, versionado)" as bucket
+database "NoSQL\ntabela única micro_faq\n(pk + sk)" as nosql
+cloud "Repositório\n(releases)" as repo
+rectangle "IAM\ngrupos dinâmicos (modo instância)\nou usuários com chave de API (modo arquivo)" as iam
+wa <--> bot : whatsmeow
+bot --> bucket : lê pacotes\ngrava JSON de treinamento
+treino --> bucket : lê JSON\ngrava pacotes
+bot --> nosql : tópicos, casos\ne sessão do WhatsApp
+treino --> repo : pacote + JSON\n(Brotli)
+iam ..> bot
+iam ..> treino
+@enduml

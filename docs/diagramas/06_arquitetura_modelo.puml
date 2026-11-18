@@ -1,0 +1,20 @@
+@startuml
+!include _tema.iuml
+title Arquitetura do modelo
+start
+:Entrada: **S** [8, 300] e **máscara** [8, 1];
+:**Projeção por frase**
+h_j = tanh(W_p · s_j + b_p)
+300 → 256;
+:**Atenção sobre frases**
+a = softmax_j(v · h_j), só frases válidas
+qual frase carrega a pergunta;
+:**Vetor da mensagem**
+m = Σ a_j · h_j   [256];
+:**Saída**
+z = W_o · m + b_o   [K];
+:**Probabilidades**
+p = sigmoid(z / T)
+independente por tópico;
+stop
+@enduml
